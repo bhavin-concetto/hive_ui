@@ -204,7 +204,7 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
               _isFocused = focused;
             });
           },
-          onKey: (focusNode, event) {
+          onKeyEvent: (focusNode, event) {
             return _onKeyPressed(event);
           },
           child: FormField(
@@ -365,7 +365,7 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
       if (_overlayEntry != null) {
         // Overlay.of(context)!.insert(_overlayEntry!);
         if (_overlayBackdropEntry != null) {
-          Overlay.of(context)!
+          Overlay.of(context)
               ?.insertAll([_overlayBackdropEntry!, _overlayEntry!]);
         }
         setState(() {
@@ -404,35 +404,37 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
     });
   }
 
-  KeyEventResult _onKeyPressed(RawKeyEvent event) {
-    if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-      if (_searchFocusNode.hasFocus) {
-        _toggleOverlay();
-      } else {
-        _toggleOverlay();
+  KeyEventResult _onKeyPressed(KeyEvent event) {
+    if (event is KeyDownEvent || event is KeyRepeatEvent) {
+      if (event.logicalKey == LogicalKeyboardKey.enter) {
+        if (_searchFocusNode.hasFocus) {
+          _toggleOverlay();
+        } else {
+          _toggleOverlay();
+        }
+        _setValue();
+        return KeyEventResult.handled;
+      } else if (event.logicalKey == LogicalKeyboardKey.escape) {
+        _removeOverlay();
+        return KeyEventResult.handled;
+      } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+        int v = _listItemFocusedPosition;
+        v++;
+
+        if (v >= _options!.length) v = 0;
+        _listItemFocusedPosition = v;
+        _listItemsValueNotifier.value = List<String>.from(_options ?? []);
+
+        return KeyEventResult.handled;
+      } else if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+        int v = _listItemFocusedPosition;
+        v--;
+        if (v < 0) v = _options!.length - 1;
+        _listItemFocusedPosition = v;
+        _listItemsValueNotifier.value = List<String>.from(_options ?? []);
+
+        return KeyEventResult.handled;
       }
-      _setValue();
-      return KeyEventResult.handled;
-    } else if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
-      _removeOverlay();
-      return KeyEventResult.handled;
-    } else if (event.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
-      int v = _listItemFocusedPosition;
-      v++;
-
-      if (v >= _options!.length) v = 0;
-      _listItemFocusedPosition = v;
-      _listItemsValueNotifier.value = List<String>.from(_options ?? []);
-
-      return KeyEventResult.handled;
-    } else if (event.isKeyPressed(LogicalKeyboardKey.arrowUp)) {
-      int v = _listItemFocusedPosition;
-      v--;
-      if (v < 0) v = _options!.length - 1;
-      _listItemFocusedPosition = v;
-      _listItemsValueNotifier.value = List<String>.from(_options ?? []);
-
-      return KeyEventResult.handled;
     }
     return KeyEventResult.ignored;
   }

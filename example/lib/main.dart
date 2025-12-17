@@ -55,7 +55,6 @@ class HomePage extends StatelessWidget {
                 Boxes.customersBox.clear();
               },
             ),
-
           ],
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 // import 'package:hive/hive.dart';
 import 'package:hive_ui/core/box_update_handler.dart';
 import 'package:hive_ui/core/hive_view_state.dart';

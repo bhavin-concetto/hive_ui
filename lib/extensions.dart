@@ -48,8 +48,7 @@ mixin BoxViewMixin on State<HiveBoxesDetails> {
     required void Function({
       required bool selected,
       required int index,
-    })
-        onSelectRow,
+    }) onSelectRow,
     required bool isSelected,
     required bool enableSelection,
     required List<String> keys,

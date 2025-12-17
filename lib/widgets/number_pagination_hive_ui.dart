@@ -91,11 +91,11 @@ class _NumberPaginationPageHiveUiState
     return AbsorbPointer(
       child: TextButton(
         style: ButtonStyle(
-          elevation: MaterialStateProperty.all<double>(5.0),
-          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-          minimumSize: MaterialStateProperty.all(const Size(48, 48)),
-          foregroundColor: MaterialStateProperty.all(widget.colorPrimary),
-          backgroundColor: MaterialStateProperty.all(widget.colorSub),
+          elevation: WidgetStateProperty.all<double>(5.0),
+          padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+          minimumSize: WidgetStateProperty.all(const Size(48, 48)),
+          foregroundColor: WidgetStateProperty.all(widget.colorPrimary),
+          backgroundColor: WidgetStateProperty.all(widget.colorSub),
         ),
         onPressed: () {},
         child: icon,
