@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   hive_ce_flutter: 2.3.3
-  intl: ^0.18.0
+  intl: 0.20.2
   number_pagination: ^0.0.3+2
   uuid: 4.5.2
 
